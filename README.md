@@ -1,50 +1,108 @@
-# Welcome to your Expo app 👋
+# Victory Native Dual Y-Axis Chart Example
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Complete implementation showing how to create charts with dual y-axis in React Native using Victory Native XL
 
-## Get started
+## Overview
 
-1. Install dependencies
+This example demonstrates:
+- **Dual Y-Axis Configuration**: Independent left and right y-axes with separate scales
+- **Combined Visualizations**: Scatter plots and line charts on the same graph
+- **Custom Formatting**: Different label formats for each axis (numbers vs currency)
 
-   ```bash
-   npm install
-   ```
+## Quick Start
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+**Install dependencies:**
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+**Start the development server:**
+```bash
+npx expo start
+```
 
-## Learn more
+**Run on a specific platform:**
+```bash
+npx expo start --ios      # iOS Simulator
+npx expo start --android  # Android Emulator
+npx expo start --web      # Web browser
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## Project Structure
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```
+app/
+  index.tsx           Main chart implementation
+  _layout.tsx         App layout configuration
 
-## Join the community
+assets/
+  inter-medium.ttf    Custom font for chart labels
+  fonts.d.ts          Font type declarations
+```
 
-Join our community of developers creating universal apps.
+## Key Implementation
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+The main chart code is in `app/index.tsx` and includes:
+
+### Data Structure
+Each data point contains values for both y-axes:
+```typescript
+const chartData = [
+  { xValue: "January", sales: 1200, costs: 450 },
+  { xValue: "February", sales: 1350, costs: 420 },
+  // ... 12 months total
+];
+```
+
+### Dual Y-Axis Configuration
+```typescript
+yAxis: [
+  {
+    yKeys: ["sales"],      // Left axis
+    formatYLabel: (value) => `${value}`,
+    axisSide: "left",
+  },
+  {
+    yKeys: ["costs"],      // Right axis  
+    formatYLabel: (value) => `$${value}`,
+    axisSide: "right",
+  }
+]
+```
+
+### Chart Rendering
+```typescript
+<CartesianChart data={chartData} xKey="xValue" yKeys={["sales", "costs"]}>
+  {({ points }) => (
+    <>
+      <Line points={points.sales} color="#10B981" />
+      <Scatter points={points.sales} color="#10B981" />
+      
+      <Scatter points={points.costs} color="#F59E0B" />
+      <Line points={points.costs} color="#F59E0B" />
+    </>
+  )}
+</CartesianChart>
+```
+
+## Core Dependencies
+
+- `victory-native` - Chart library
+- `@shopify/react-native-skia` - Graphics rendering
+- `react-native-reanimated` - Smooth animations
+- `expo-font` - Custom font loading
+
+
+## Troubleshooting
+
+**Font not loading**: Verify `assets/inter-medium.ttf` exists and is properly imported
+
+**TypeScript errors**: Confirm all Victory Native type imports are correct
+
+## Related Article
+
+This repository accompanies a detailed tutorial article:
+
+**[Read the full tutorial here](#)** _(link to be added)_
+
+
