@@ -1,6 +1,6 @@
 # Victory Native XL Dual Y-Axis Chart Example
 
-Complete implementation showing how to create charts with dual y-axis in React Native using Victory Native XL
+Complete implementation from a tutorial article showing how to create charts with dual y-axis in React Native using Victory Native XL
 
 ## Overview
 
