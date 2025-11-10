@@ -103,6 +103,6 @@ yAxis: [
 
 This repository accompanies a detailed tutorial article:
 
-**[Read the full tutorial here](#)** _(link to be added)_
+**[Read the full tutorial here](https://spin.atomicobject.com/victory-native-xl/)
 
 
